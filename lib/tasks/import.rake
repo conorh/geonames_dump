@@ -158,7 +158,7 @@ namespace :geonames_dump do
       zip_file_in_cache = File.join(CACHE_DIR, filename)
 
       unless File::exist?(txt_file_in_cache)
-        puts 'file doesn\'t exists'
+        puts "File doesn't exist in cache : #{txt_file_in_cache}"
         if unzip
           download(url, zip_file_in_cache)
           unzip_file(zip_file_in_cache, CACHE_DIR)
@@ -166,14 +166,14 @@ namespace :geonames_dump do
           download(url, txt_file_in_cache)
         end
       else
-        puts "file already exists : #{txt_file_in_cache}"
+        puts "File already exists in cache : #{txt_file_in_cache}"
       end
 
       ret = (File::exist?(txt_file_in_cache) ? txt_file_in_cache : nil)
     end
 
     def unzip_file(file, destination)
-      puts "unzipping #{file}"
+      puts "Unzipping #{file}"
       Zip::File.open(file) do |zip_file|
         zip_file.each do |f|
           f_path = File.join(destination, f.name)
